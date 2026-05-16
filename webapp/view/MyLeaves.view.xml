@@ -1,0 +1,64 @@
+<mvc:View
+    controllerName="my.sample.app.controller.MyLeaves"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout">
+    
+    <Page title="My Leaves" showNavButton="true" navButtonPress=".onNavBack">
+        <headerContent>
+            <Button icon="sap-icon://add" text="Apply Leave" type="Emphasized" press=".onApplyLeave"/>
+        </headerContent>
+        <content>
+            <layout:HorizontalLayout allowWrapping="true" class="sapUiSmallMargin">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Total Entitlement" subheader="Days">
+                    <TileContent>
+                        <NumericContent value="{/leaveBalance/total}" valueColor="Neutral" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Leaves Used" subheader="Days">
+                    <TileContent>
+                        <NumericContent value="{/leaveBalance/used}" valueColor="Critical" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Balance Available" subheader="Days">
+                    <TileContent>
+                        <NumericContent value="{/leaveBalance/available}" valueColor="Good" />
+                    </TileContent>
+                </GenericTile>
+            </layout:HorizontalLayout>
+
+            <Table id="myLeavesTable" items="{path: '/leaves', sorter: {path: 'startDate', descending: true}}" class="sapUiSmallMargin">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Leave History" level="H2"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Leave Type" />
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="Duration" />
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="Reason" />
+                    </Column>
+                    <Column>
+                        <Text text="Status" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{type}" />
+                            <Text text="{startDate} to {endDate}" />
+                            <Text text="{reason}" />
+                            <ObjectStatus text="{status}" state="{= ${status} === 'Approved' ? 'Success' : (${status} === 'Rejected' ? 'Error' : 'Warning') }" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

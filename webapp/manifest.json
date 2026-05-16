@@ -1,0 +1,147 @@
+{
+  "_version": "1.12.0",
+  "sap.app": {
+    "id": "my.sample.app",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "Sample Project",
+    "description": "A simple SAPUI5 project from scratch"
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "my.sample.app.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "dependencies": {
+      "minUI5Version": "1.108.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.viz": {},
+        "sap.uxap": {},
+        "sap.ui.unified": {},
+        "sap.ui.export": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "my.sample.app.i18n.i18n"
+        }
+      },
+      "session": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/data.json"
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "my.sample.app.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "login",
+          "pattern": "",
+          "target": ["login"]
+        },
+        {
+          "name": "home",
+          "pattern": "home",
+          "target": ["home"]
+        },
+        {
+          "name": "employeeList",
+          "pattern": "employees",
+          "target": ["employeeList"]
+        },
+        {
+          "name": "employeeDetail",
+          "pattern": "employee/{employeeId}",
+          "target": ["employeeDetail"]
+        },
+        {
+          "name": "departmentList",
+          "pattern": "departments",
+          "target": ["departmentList"]
+        },
+        {
+          "name": "departmentDetail",
+          "pattern": "department/{deptId}",
+          "target": ["departmentDetail"]
+        },
+        {
+          "name": "myLeaves",
+          "pattern": "my-leaves",
+          "target": ["myLeaves"]
+        },
+        {
+          "name": "approveLeaves",
+          "pattern": "approve-leaves",
+          "target": ["approveLeaves"]
+        }
+      ],
+      "targets": {
+        "login": {
+          "viewId": "login",
+          "viewName": "Login"
+        },
+        "home": {
+          "viewId": "home",
+          "viewName": "Home"
+        },
+        "employeeList": {
+          "viewId": "employeeList",
+          "viewName": "EmployeeList"
+        },
+        "employeeDetail": {
+          "viewId": "employeeDetail",
+          "viewName": "EmployeeDetail"
+        },
+        "departmentList": {
+          "viewId": "departmentList",
+          "viewName": "DepartmentList"
+        },
+        "departmentDetail": {
+          "viewId": "departmentDetail",
+          "viewName": "DepartmentDetail"
+        },
+        "myLeaves": {
+          "viewId": "myLeaves",
+          "viewName": "MyLeaves"
+        },
+        "approveLeaves": {
+          "viewId": "approveLeaves",
+          "viewName": "ApproveLeaves"
+        }
+      }
+    }
+  }
+}

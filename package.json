@@ -1,0 +1,11 @@
+{
+  "name": "sample-project",
+  "version": "1.0.0",
+  "description": "SAPUI5 Sample Project",
+  "scripts": {
+    "start": "ui5 serve -o index.html"
+  },
+  "dependencies": {
+    "@ui5/cli": "^3.0.0"
+  }
+}

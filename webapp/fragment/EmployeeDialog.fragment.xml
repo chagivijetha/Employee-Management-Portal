@@ -1,0 +1,39 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog title="Employee Dialog" contentWidth="450px">
+        <content>
+            <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                <f:content>
+                    <Label text="First Name" required="true"/>
+                    <Input value="{dialog>/firstName}" />
+                    
+                    <Label text="Last Name" required="true"/>
+                    <Input value="{dialog>/lastName}" />
+                    
+                    <Label text="Department"/>
+                    <Input value="{dialog>/department}" />
+                    
+                    <Label text="Position"/>
+                    <Input value="{dialog>/position}" />
+                    
+                    <Label text="Email"/>
+                    <Input value="{dialog>/email}" type="Email" />
+                    
+                    <Label text="Status"/>
+                    <Select selectedKey="{dialog>/status}">
+                        <core:Item key="Active" text="Active" />
+                        <core:Item key="Inactive" text="Inactive" />
+                    </Select>
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Save" type="Emphasized" press=".onSaveEmployee" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press=".onCancelDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

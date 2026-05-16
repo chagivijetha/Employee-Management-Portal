@@ -1,0 +1,51 @@
+<mvc:View
+    controllerName="my.sample.app.controller.ApproveLeaves"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+    
+    <Page title="Approve Leaves" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <Table id="approveLeavesTable" items="{path: '/leaves', sorter: {path: 'startDate', descending: true}}" class="sapUiSmallMargin">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="All Leave Requests" level="H2"/>
+                        <ToolbarSpacer/>
+                        <SearchField width="30%" search=".onSearch" placeholder="Search Employee..."/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Employee" />
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="Leave Type" />
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="Duration" />
+                    </Column>
+                    <Column>
+                        <Text text="Status" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="Actions" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{employeeName}" text="{employeeId}" />
+                            <Text text="{type}" />
+                            <Text text="{startDate} to {endDate}" />
+                            <ObjectStatus text="{status}" state="{= ${status} === 'Approved' ? 'Success' : (${status} === 'Rejected' ? 'Error' : 'Warning') }" />
+                            <HBox justifyContent="End">
+                                <Button icon="sap-icon://accept" type="Accept" press=".onApprove" visible="{= ${status} === 'Pending'}" class="sapUiTinyMarginEnd" tooltip="Approve"/>
+                                <Button icon="sap-icon://decline" type="Reject" press=".onReject" visible="{= ${status} === 'Pending'}" tooltip="Reject"/>
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>
