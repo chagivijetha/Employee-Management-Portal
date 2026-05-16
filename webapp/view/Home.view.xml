@@ -64,6 +64,7 @@
                             <Button text="My Leaves" icon="sap-icon://time-account" class="sapUiTinyMarginEnd" press=".onMyLeaves"/>
                             <Button text="Approve Leaves" icon="sap-icon://manager-insight" class="sapUiTinyMarginEnd" press=".onApproveLeaves" visible="{= ${session>/user/role} !== 'Employee'}"/>
                             <Button text="Manage Departments" icon="sap-icon://company-view" class="sapUiTinyMarginEnd" press=".onManageDepartments" visible="{= ${session>/user/role} === 'Admin'}"/>
+                            <Button text="Analytics &amp; Reports" icon="sap-icon://analytics" class="sapUiTinyMarginEnd" press=".onViewAnalytics" type="Emphasized" visible="{= ${session>/user/role} !== 'Employee'}"/>
                         </HBox>
                     </content>
                 </Panel>

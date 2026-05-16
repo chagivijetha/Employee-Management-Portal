@@ -1,0 +1,171 @@
+{
+  "status": 200,
+  "message": "Mock API Service",
+  "timestamp": "2024-01-01T00:00:00Z",
+  "departments": [
+    {
+      "id": "D01",
+      "name": "Engineering",
+      "employees": 55,
+      "managerName": "John Doe",
+      "managerId": "EMP001",
+      "budget": 1500000,
+      "description": "Software development and engineering operations"
+    },
+    {
+      "id": "D02",
+      "name": "Sales",
+      "employees": 30,
+      "managerName": "Jane Smith",
+      "managerId": "EMP002",
+      "budget": 800000,
+      "description": "Global sales and client acquisition"
+    },
+    {
+      "id": "D03",
+      "name": "Marketing",
+      "employees": 20,
+      "managerName": "Emily Brown",
+      "managerId": "EMP004",
+      "budget": 600000,
+      "description": "Brand management and digital marketing"
+    },
+    {
+      "id": "D04",
+      "name": "HR",
+      "employees": 12,
+      "managerName": "Michael Johnson",
+      "managerId": "EMP003",
+      "budget": 300000,
+      "description": "Human resources and talent acquisition"
+    },
+    {
+      "id": "D05",
+      "name": "Finance",
+      "employees": 15,
+      "managerName": "William Davis",
+      "managerId": "EMP005",
+      "budget": 500000,
+      "description": "Financial planning and accounting"
+    },
+    {
+      "id": "D06",
+      "name": "Operations",
+      "employees": 10,
+      "managerName": "Sarah Lee",
+      "managerId": "EMP006",
+      "budget": 750000,
+      "description": "Day-to-day business operations and logistics"
+    }
+  ],
+  "employees": [
+    {
+      "id": "EMP001",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@company.com",
+      "department": "Engineering",
+      "position": "Senior Developer",
+      "hireDate": "2020-01-15",
+      "status": "Active"
+    },
+    {
+      "id": "EMP002",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@company.com",
+      "department": "Sales",
+      "position": "Account Executive",
+      "hireDate": "2021-03-22",
+      "status": "Active"
+    },
+    {
+      "id": "EMP003",
+      "firstName": "Michael",
+      "lastName": "Johnson",
+      "email": "michael.j@company.com",
+      "department": "HR",
+      "position": "HR Manager",
+      "hireDate": "2019-11-05",
+      "status": "Active"
+    },
+    {
+      "id": "EMP004",
+      "firstName": "Emily",
+      "lastName": "Brown",
+      "email": "emily.b@company.com",
+      "department": "Marketing",
+      "position": "Marketing Specialist",
+      "hireDate": "2022-06-10",
+      "status": "Inactive"
+    },
+    {
+      "id": "EMP005",
+      "firstName": "William",
+      "lastName": "Davis",
+      "email": "william.d@company.com",
+      "department": "Finance",
+      "position": "Financial Analyst",
+      "hireDate": "2018-09-01",
+      "status": "Active"
+    }
+  ],
+  "analytics": {
+    "totalEmployees": 142,
+    "totalDepartments": 6,
+    "activeEmployees": 138,
+    "inactiveEmployees": 4,
+    "hiringTrends": [
+      {
+        "month": "January",
+        "hires": 5
+      },
+      {
+        "month": "February",
+        "hires": 3
+      },
+      {
+        "month": "March",
+        "hires": 6
+      },
+      {
+        "month": "April",
+        "hires": 4
+      },
+      {
+        "month": "May",
+        "hires": 7
+      },
+      {
+        "month": "June",
+        "hires": 3
+      }
+    ],
+    "departmentDistribution": [
+      {
+        "department": "Engineering",
+        "employees": 55
+      },
+      {
+        "department": "Sales",
+        "employees": 30
+      },
+      {
+        "department": "Marketing",
+        "employees": 20
+      },
+      {
+        "department": "HR",
+        "employees": 12
+      },
+      {
+        "department": "Finance",
+        "employees": 15
+      },
+      {
+        "department": "Operations",
+        "employees": 10
+      }
+    ]
+  }
+}

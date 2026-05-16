@@ -72,6 +72,11 @@ sap.ui.define([
         onApproveLeaves: function () {
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("approveLeaves");
+        },
+
+        onViewAnalytics: function () {
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("analytics");
         }
     });
 });

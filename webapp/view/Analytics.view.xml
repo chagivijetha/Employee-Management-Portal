@@ -1,0 +1,250 @@
+<mvc:View 
+	controllerName="my.sample.app.controller.Analytics" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" 
+	xmlns:f="sap.f" 
+	xmlns:core="sap.ui.core"
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.data="sap.viz.ui5.data"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
+	
+	<Page id="analyticsPage" title="Analytics &amp; Reports" showNavButton="true" navButtonPress="onNavBack">
+		<content>
+			<VBox class="sapUiLargeMargin">
+				<!-- Header Section -->
+				<HBox class="sapUiMediumMarginBottom">
+					<Title text="Analytics Dashboard" level="H1"/>
+					<ToolbarSpacer/>
+					<Button text="Export to Excel" icon="sap-icon://excel-attachment" press="onExportExcel" type="Emphasized"/>
+					<Button text="Export to PDF" icon="sap-icon://pdf-attachment" press="onExportPDF" type="Emphasized"/>
+				</HBox>
+
+				<!-- Tabs for Different Analytics -->
+				<IconTabBar class="sapUiResponsiveMargin">
+					
+					<!-- Department Analytics Tab -->
+					<items>
+						<IconTabFilter id="departmentTab" icon="sap-icon://org-chart" text="Department Analytics" key="dept">
+							<VBox class="sapUiMediumMargin">
+								<Title text="Department Overview" level="H2" class="sapUiMediumMarginBottom"/>
+								
+								<!-- Department KPIs -->
+								<HBox class="sapUiMediumMarginBottom" justifyContent="SpaceBetween" wrapping="Wrap">
+									<VBox>
+										<Text text="Total Departments" class="sapUiTinyMarginBottom"/>
+										<Title text="{/kpis/totalDepartments}" level="H3"/>
+									</VBox>
+									<VBox>
+										<Text text="Total Employees" class="sapUiTinyMarginBottom"/>
+										<Title text="{/kpis/totalEmployees}" level="H3"/>
+									</VBox>
+									<VBox>
+										<Text text="Active Employees" class="sapUiTinyMarginBottom"/>
+										<Title text="{/kpis/activeEmployees}" level="H3"/>
+									</VBox>
+									<VBox>
+										<Text text="Inactive Employees" class="sapUiTinyMarginBottom"/>
+										<Title text="{/kpis/inactiveEmployees}" level="H3"/>
+									</VBox>
+								</HBox>
+
+								<!-- Department Chart -->
+								<VBox class="sapUiMediumMarginBottom">
+									<Title text="Employee Count by Department" level="H3" class="sapUiMediumMarginBottom"/>
+									<viz:VizFrame id="departmentChart" uiConfig="{applicationSet:'fiori'}" vizType="column" height="400px">
+										<viz:dataset>
+											<viz.data:FlattenedDataset data="{/departments}">
+												<viz.data:dimensions>
+													<viz.data:DimensionDefinition name="Department" value="{name}" />
+												</viz.data:dimensions>
+												<viz.data:measures>
+													<viz.data:MeasureDefinition name="Employees" value="{employees}" />
+												</viz.data:measures>
+											</viz.data:FlattenedDataset>
+										</viz:dataset>
+										<viz:feeds>
+											<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Employees" />
+											<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Department" />
+										</viz:feeds>
+									</viz:VizFrame>
+								</VBox>
+
+								<!-- Department Table -->
+								<Title text="Department Details" level="H3" class="sapUiMediumMarginBottom"/>
+								<Table id="departmentTable" items="{/departments}" class="sapUiResponsiveMargin">
+									<headerToolbar>
+										<Toolbar>
+											<Title text="Department List"/>
+										</Toolbar>
+									</headerToolbar>
+									<columns>
+										<Column>
+											<Text text="Department Name"/>
+										</Column>
+										<Column>
+											<Text text="Employees"/>
+										</Column>
+										<Column>
+											<Text text="Manager"/>
+										</Column>
+										<Column>
+											<Text text="Budget"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem vAlign="Middle">
+											<cells>
+												<Text text="{name}"/>
+												<Text text="{employees}"/>
+												<Text text="{managerName}"/>
+												<Text text="{budget}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</VBox>
+						</IconTabFilter>
+
+						<!-- Hiring Trends Tab -->
+						<IconTabFilter id="hiringTab" icon="sap-icon://employee" text="Hiring Trends" key="hiring">
+							<VBox class="sapUiMediumMargin">
+								<Title text="Hiring Trends Analysis" level="H2" class="sapUiMediumMarginBottom"/>
+								
+								<HBox class="sapUiMediumMarginBottom" justifyContent="SpaceBetween" wrapping="Wrap">
+									<VBox>
+										<Text text="Hires This Year" class="sapUiTinyMarginBottom"/>
+										<Title text="28" level="H3"/>
+									</VBox>
+									<VBox>
+										<Text text="Avg. Time to Hire" class="sapUiTinyMarginBottom"/>
+										<Title text="32 days" level="H3"/>
+									</VBox>
+									<VBox>
+										<Text text="Retention Rate" class="sapUiTinyMarginBottom"/>
+										<Title text="95%" level="H3"/>
+									</VBox>
+									<VBox>
+										<Text text="New Positions" class="sapUiTinyMarginBottom"/>
+										<Title text="12" level="H3"/>
+									</VBox>
+								</HBox>
+
+								<!-- Hiring Trend Chart -->
+								<VBox class="sapUiMediumMarginBottom">
+									<Title text="Hires by Month" level="H3" class="sapUiMediumMarginBottom"/>
+									<viz:VizFrame id="hiringTrendChart" uiConfig="{applicationSet:'fiori'}" vizType="line" height="400px">
+										<viz:dataset>
+											<viz.data:FlattenedDataset data="{/hiringTrends}">
+												<viz.data:dimensions>
+													<viz.data:DimensionDefinition name="Month" value="{month}" />
+												</viz.data:dimensions>
+												<viz.data:measures>
+													<viz.data:MeasureDefinition name="Hires" value="{hires}" />
+												</viz.data:measures>
+											</viz.data:FlattenedDataset>
+										</viz:dataset>
+										<viz:feeds>
+											<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Hires" />
+											<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month" />
+										</viz:feeds>
+									</viz:VizFrame>
+								</VBox>
+
+								<!-- Department-wise Hiring -->
+								<Title text="Hiring by Department" level="H3" class="sapUiMediumMarginBottom"/>
+								<viz:VizFrame id="departmentHiringChart" uiConfig="{applicationSet:'fiori'}" vizType="bar" height="400px">
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/departments}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Department" value="{name}" />
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Hires" value="{hires}" />
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Hires" />
+										<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Department" />
+									</viz:feeds>
+								</viz:VizFrame>
+							</VBox>
+						</IconTabFilter>
+
+						<!-- Employee Distribution Tab -->
+						<IconTabFilter id="distributionTab" icon="sap-icon://pie-chart" text="Distribution" key="distribution">
+							<VBox class="sapUiMediumMargin">
+								<Title text="Employee Distribution" level="H2" class="sapUiMediumMarginBottom"/>
+								
+								<HBox class="sapUiMediumMarginBottom" justifyContent="SpaceBetween" wrapping="Wrap">
+									<VBox width="45%">
+										<Text text="By Status" class="sapUiTinyMarginBottom" style="font-weight: bold"/>
+										<viz:VizFrame id="statusChart" uiConfig="{applicationSet:'fiori'}" vizType="pie" height="300px">
+											<viz:dataset>
+												<viz.data:FlattenedDataset data="{/employeeStatus}">
+													<viz.data:dimensions>
+														<viz.data:DimensionDefinition name="Status" value="{status}" />
+													</viz.data:dimensions>
+													<viz.data:measures>
+														<viz.data:MeasureDefinition name="Count" value="{count}" />
+													</viz.data:measures>
+												</viz.data:FlattenedDataset>
+											</viz:dataset>
+											<viz:feeds>
+												<viz.feeds:FeedItem uid="size" type="Measure" values="Count" />
+												<viz.feeds:FeedItem uid="color" type="Dimension" values="Status" />
+											</viz:feeds>
+										</viz:VizFrame>
+									</VBox>
+									<VBox width="45%">
+										<Text text="By Department" class="sapUiTinyMarginBottom" style="font-weight: bold"/>
+										<viz:VizFrame id="deptDistributionChart" uiConfig="{applicationSet:'fiori'}" vizType="donut" height="300px">
+											<viz:dataset>
+												<viz.data:FlattenedDataset data="{/departments}">
+													<viz.data:dimensions>
+														<viz.data:DimensionDefinition name="Department" value="{name}" />
+													</viz.data:dimensions>
+													<viz.data:measures>
+														<viz.data:MeasureDefinition name="Employees" value="{employees}" />
+													</viz.data:measures>
+												</viz.data:FlattenedDataset>
+											</viz:dataset>
+											<viz:feeds>
+												<viz.feeds:FeedItem uid="size" type="Measure" values="Employees" />
+												<viz.feeds:FeedItem uid="color" type="Dimension" values="Department" />
+											</viz:feeds>
+										</viz:VizFrame>
+									</VBox>
+								</HBox>
+
+								<Title text="Status Distribution Details" level="H3" class="sapUiMediumMarginBottom"/>
+								<Table items="{/employeeStatus}" class="sapUiResponsiveMargin">
+									<columns>
+										<Column>
+											<Text text="Status"/>
+										</Column>
+										<Column>
+											<Text text="Count"/>
+										</Column>
+										<Column>
+											<Text text="Percentage"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{status}"/>
+												<Text text="{count}"/>
+												<Text text="{= (${count} / 142 * 100).toFixed(1) + '%'}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</VBox>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>
