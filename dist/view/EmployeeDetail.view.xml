@@ -1,0 +1,108 @@
+<mvc:View
+    controllerName="my.sample.app.controller.EmployeeDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    displayBlock="true">
+    
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showEditHeaderButton="false"
+        editHeaderButtonPress="handleEditBtnPress" upperCaseAnchorBar="false">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{firstName} {lastName}" wrapping="true"/>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox fitContainer="true" alignItems="Center">
+                        <Avatar src="sap-icon://employee" class="sapUiTinyMarginEnd"/>
+                        <Title text="{firstName} {lastName}" wrapping="true"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="{position}"/>
+                </uxap:expandedContent>
+                <uxap:snappedContent>
+                    <Text text="{position}"/>
+                </uxap:snappedContent>
+                <uxap:actions>
+                    <Button icon="sap-icon://edit" text="Edit" press=".onEditEmployee" type="Emphasized" visible="{= ${session>/user/role} !== 'Employee'}"/>
+                    <Button icon="sap-icon://delete" text="Delete" press=".onDeleteEmployee" type="Transparent" visible="{= ${session>/user/role} === 'Admin'}"/>
+                </uxap:actions>
+                <uxap:navigationActions>
+                    <Button icon="sap-icon://nav-back" tooltip="Go Back" press=".onNavBack" type="Transparent"/>
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" fitContainer="true">
+                <Avatar src="sap-icon://employee" displaySize="L" class="sapUiTinyMarginEnd"/>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Employee ID"/>
+                    <Text text="{id}"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Status"/>
+                    <ObjectStatus text="{status}" state="{= ${status} === 'Active' ? 'Success' : 'Error' }"/>
+                </layout:VerticalLayout>
+            </FlexBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Profile">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Personal Information">
+                        <uxap:blocks>
+                            <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
+                                <form:content>
+                                    <Label text="First Name"/>
+                                    <Text text="{firstName}"/>
+                                    <Label text="Last Name"/>
+                                    <Text text="{lastName}"/>
+                                    <Label text="Email Address"/>
+                                    <Link text="{email}" href="mailto:{email}"/>
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Employment Details">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Job Information">
+                        <uxap:blocks>
+                            <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12">
+                                <form:content>
+                                    <Label text="Department"/>
+                                    <Text text="{department}"/>
+                                    <Label text="Position"/>
+                                    <Text text="{position}"/>
+                                    <Label text="Hire Date"/>
+                                    <Text text="{hireDate}"/>
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Documents">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Uploads">
+                        <uxap:blocks>
+                            <VBox class="sapUiSmallMargin">
+                                <Label text="Upload Resume / Document" />
+                                <u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete" />
+                                <Button text="Upload File" press="handleUploadPress" class="sapUiSmallMarginTop"/>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

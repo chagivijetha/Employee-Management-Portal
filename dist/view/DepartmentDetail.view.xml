@@ -1,0 +1,96 @@
+<mvc:View
+    controllerName="my.sample.app.controller.DepartmentDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    displayBlock="true">
+    
+    <uxap:ObjectPageLayout id="ObjectPageLayoutDept" showTitleInHeaderContent="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{name} Department" wrapping="true"/>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox fitContainer="true" alignItems="Center">
+                        <Avatar src="sap-icon://company-view" class="sapUiTinyMarginEnd"/>
+                        <Title text="{name} Department" wrapping="true"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="{id}"/>
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button icon="sap-icon://edit" text="Edit" press=".onEditDepartment" type="Emphasized" visible="{= ${session>/user/role} === 'Admin'}"/>
+                </uxap:actions>
+                <uxap:navigationActions>
+                    <Button icon="sap-icon://nav-back" tooltip="Go Back" press=".onNavBack" type="Transparent"/>
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" fitContainer="true">
+                <Avatar src="sap-icon://company-view" displaySize="L" class="sapUiTinyMarginEnd"/>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Manager"/>
+                    <Text text="{managerName}"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Employee Count"/>
+                    <ObjectNumber number="{employees}" state="Information"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <Label text="Budget"/>
+                    <ObjectNumber number="{budget}" unit="USD" state="Success"/>
+                </layout:VerticalLayout>
+            </FlexBox>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection title="Overview">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Description">
+                        <uxap:blocks>
+                            <Text text="{description}" class="sapUiSmallMargin"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection title="Employees">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Department Members">
+                        <uxap:blocks>
+                            <!-- Table bound to /employees but filtered in controller to only show this dept's employees -->
+                            <Table id="departmentEmployeesTable" items="{path: '/employees', sorter: {path: 'lastName'}}" mode="SingleSelectMaster">
+                                <columns>
+                                    <Column>
+                                        <Text text="Name" />
+                                    </Column>
+                                    <Column demandPopin="true">
+                                        <Text text="Position" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Status" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Navigation" press=".onEmployeePress">
+                                        <cells>
+                                            <ObjectIdentifier title="{firstName} {lastName}" text="{id}" />
+                                            <Text text="{position}" />
+                                            <ObjectStatus text="{status}" state="{= ${status} === 'Active' ? 'Success' : 'Error' }" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

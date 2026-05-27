@@ -1,0 +1,124 @@
+<mvc:View
+    controllerName="my.sample.app.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    displayBlock="true">
+
+    <f:DynamicPage id="dynamicPageId" headerExpanded="true" toggleHeaderOnTitleClick="true">
+        <!-- Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Employee Portal Dashboard"/>
+                </f:heading>
+                <f:expandedContent>
+                    <Label text="Welcome, {session>/user/name}!"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label text="Welcome, {session>/user/name}!"/>
+                </f:snappedContent>
+                <f:content>
+                    <Text text="Role: {session>/user/role}"/>
+                </f:content>
+                <f:actions>
+                    <Button text="Logout" type="Transparent" icon="sap-icon://log" press=".onLogoutPress"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <layout:HorizontalLayout allowWrapping="true">
+                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Total Employees" subheader="Across all departments">
+                        <TileContent>
+                            <NumericContent value="{/kpis/totalEmployees}" valueColor="Neutral" />
+                        </TileContent>
+                    </GenericTile>
+                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Active Employees" subheader="Currently employed">
+                        <TileContent>
+                            <NumericContent value="{/kpis/activeEmployees}" valueColor="Good" />
+                        </TileContent>
+                    </GenericTile>
+                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop" header="Departments" subheader="Active units">
+                        <TileContent>
+                            <NumericContent value="{/kpis/totalDepartments}" valueColor="Neutral" />
+                        </TileContent>
+                    </GenericTile>
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <!-- Content -->
+        <f:content>
+            <VBox class="sapUiSmallMargin">
+                <Panel headerText="Quick Actions" class="sapUiTinyMarginBottom">
+                    <content>
+                        <HBox wrap="Wrap">
+                            <Button text="Manage Employees" icon="sap-icon://employee" class="sapUiTinyMarginEnd" press=".onManageEmployees" visible="{= ${session>/user/role} !== 'Employee'}"/>
+                            <Button text="My Leaves" icon="sap-icon://time-account" class="sapUiTinyMarginEnd" press=".onMyLeaves"/>
+                            <Button text="Approve Leaves" icon="sap-icon://manager-insight" class="sapUiTinyMarginEnd" press=".onApproveLeaves" visible="{= ${session>/user/role} !== 'Employee'}"/>
+                            <Button text="Manage Departments" icon="sap-icon://company-view" class="sapUiTinyMarginEnd" press=".onManageDepartments" visible="{= ${session>/user/role} === 'Admin'}"/>
+                            <Button text="Analytics &amp; Reports" icon="sap-icon://analytics" class="sapUiTinyMarginEnd" press=".onViewAnalytics" type="Emphasized" visible="{= ${session>/user/role} !== 'Employee'}"/>
+                        </HBox>
+                    </content>
+                </Panel>
+
+                <HBox wrap="Wrap" justifyContent="SpaceBetween" width="100%">
+                    <!-- Bar Chart -->
+                    <VBox width="48%">
+                        <Panel headerText="Employees by Department">
+                            <content>
+                                <viz:VizFrame id="idVizFrameBar" uiConfig="{applicationSet:'fiori'}" height="300px" width="100%" vizType="column">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/departments}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Department" value="{name}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Employees" value="{employees}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Employees" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Department" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </content>
+                        </Panel>
+                    </VBox>
+
+                    <!-- Pie Chart -->
+                    <VBox width="48%">
+                        <Panel headerText="Employee Status">
+                            <content>
+                                <viz:VizFrame id="idVizFramePie" uiConfig="{applicationSet:'fiori'}" height="300px" width="100%" vizType="pie">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/employeeStatus}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Status" value="{status}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Count" value="{count}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="size" type="Measure" values="Count" />
+                                        <viz.feeds:FeedItem uid="color" type="Dimension" values="Status" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </content>
+                        </Panel>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

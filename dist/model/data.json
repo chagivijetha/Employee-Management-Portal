@@ -1,0 +1,38 @@
+{
+  "kpis": {
+    "totalEmployees": 142,
+    "totalDepartments": 6,
+    "activeEmployees": 138,
+    "inactiveEmployees": 4
+  },
+  "departments": [
+    { "id": "D01", "name": "Engineering", "employees": 55, "managerName": "John Doe", "managerId": "EMP001", "budget": "1,500,000", "description": "Software development and engineering operations" },
+    { "id": "D02", "name": "Sales", "employees": 30, "managerName": "Jane Smith", "managerId": "EMP002", "budget": "800,000", "description": "Global sales and client acquisition" },
+    { "id": "D03", "name": "Marketing", "employees": 20, "managerName": "Emily Brown", "managerId": "EMP004", "budget": "600,000", "description": "Brand management and digital marketing" },
+    { "id": "D04", "name": "HR", "employees": 12, "managerName": "Michael Johnson", "managerId": "EMP003", "budget": "300,000", "description": "Human resources and talent acquisition" },
+    { "id": "D05", "name": "Finance", "employees": 15, "managerName": "William Davis", "managerId": "EMP005", "budget": "500,000", "description": "Financial planning and accounting" },
+    { "id": "D06", "name": "Operations", "employees": 10, "managerName": "Sarah Lee", "managerId": "EMP006", "budget": "750,000", "description": "Day-to-day business operations and logistics" }
+  ],
+  "employeeStatus": [
+    { "status": "Active", "count": 138 },
+    { "status": "Inactive", "count": 4 }
+  ],
+  "employees": [
+    { "id": "EMP001", "firstName": "John", "lastName": "Doe", "department": "Engineering", "position": "Senior Developer", "email": "john.doe@company.com", "status": "Active", "hireDate": "2020-01-15" },
+    { "id": "EMP002", "firstName": "Jane", "lastName": "Smith", "department": "Sales", "position": "Account Executive", "email": "jane.smith@company.com", "status": "Active", "hireDate": "2021-03-22" },
+    { "id": "EMP003", "firstName": "Michael", "lastName": "Johnson", "department": "HR", "position": "HR Manager", "email": "michael.j@company.com", "status": "Active", "hireDate": "2019-11-05" },
+    { "id": "EMP004", "firstName": "Emily", "lastName": "Brown", "department": "Marketing", "position": "Marketing Specialist", "email": "emily.b@company.com", "status": "Inactive", "hireDate": "2022-06-10" },
+    { "id": "EMP005", "firstName": "William", "lastName": "Davis", "department": "Finance", "position": "Financial Analyst", "email": "william.d@company.com", "status": "Active", "hireDate": "2018-09-01" }
+  ],
+  "leaveBalance": {
+    "total": 24,
+    "used": 8,
+    "available": 16
+  },
+  "leaves": [
+    { "id": "L001", "employeeId": "EMP001", "employeeName": "John Doe", "type": "Annual Leave", "startDate": "2023-12-20", "endDate": "2023-12-24", "status": "Approved", "reason": "Family vacation" },
+    { "id": "L002", "employeeId": "EMP002", "employeeName": "Jane Smith", "type": "Sick Leave", "startDate": "2023-11-15", "endDate": "2023-11-16", "status": "Approved", "reason": "Flu" },
+    { "id": "L003", "employeeId": "EMP001", "employeeName": "John Doe", "type": "Annual Leave", "startDate": "2024-02-10", "endDate": "2024-02-14", "status": "Pending", "reason": "Trip to mountains" },
+    { "id": "L004", "employeeId": "EMP005", "employeeName": "William Davis", "type": "Unpaid Leave", "startDate": "2024-03-01", "endDate": "2024-03-05", "status": "Pending", "reason": "Personal reasons" }
+  ]
+}
